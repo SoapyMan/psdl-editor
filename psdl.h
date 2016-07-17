@@ -80,11 +80,11 @@ public:
 		return sqrtf(dx * dx + dy * dy + dz * dz);
 	}
 
-	struct perimeter_pt
+	struct
 	{
 		unsigned short vertex;
 		unsigned short block; // Index + 1
-	};
+	} perimeter_pt;
 
 	class block;
 

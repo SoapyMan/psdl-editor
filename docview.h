@@ -61,21 +61,20 @@ struct GLParams
 	{}
 };
 
+struct ThreadParams
+{
+    DocTemplateBase* pDocTmpl;
+    std::string strFileName;
+    void** pDoc;
+
+    ThreadParams(DocTemplateBase* pDocTmpl, std::string strFileName, void** pDoc = NULL) :
+        pDocTmpl(pDocTmpl), strFileName(strFileName), pDoc(pDoc)
+    {}
+};
+
 class DocTemplateBase
 {
 public:
-
-	struct ThreadParams
-	{
-		DocTemplateBase* pDocTmpl;
-		std::string strFileName;
-		void** pDoc;
-
-		ThreadParams(DocTemplateBase* pDocTmpl, std::string strFileName, void** pDoc = NULL) :
-			pDocTmpl(pDocTmpl), strFileName(strFileName), pDoc(pDoc)
-		{}
-	};
-
 	virtual std::string GetExtensionString(void) const = 0;
 	virtual std::string GetFileName(bool bFull = false) = 0;
 	virtual std::string GetPathName(void) = 0;

@@ -26,8 +26,6 @@ struct extMap
 	int iEditMode;
 };
 
-class CMainFrame;
-
 class CMainFrame :
 	public CFrameWindowImpl<CMainFrame>,
 	public CUpdateUI<CMainFrame>,
