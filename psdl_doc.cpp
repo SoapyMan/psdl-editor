@@ -6,12 +6,11 @@
 
 using namespace std;
 
-typedef struct
+struct triangle
 {
 	unsigned short a, b, c;
 	long material;
-}
-triangle;
+};
 
 // What a mess :-/
 PSDLDocTemplate* PSDLDocTemplate::ReadSDLThread::pDocTmpl;

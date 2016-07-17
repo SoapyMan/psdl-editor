@@ -223,9 +223,7 @@ private:
 	CString m_strEdit1, m_strEdit2;
 };
 
-struct PageEntry;
-
-typedef struct PageEntry
+struct PageEntry
 {
 	HTREEITEM     hItem;
 	COptionsPage* pPage;
@@ -233,8 +231,7 @@ typedef struct PageEntry
 
 	PageEntry(COptionsPage* pPage, PageEntry* pParent = NULL) :
 	hItem(NULL), pPage(pPage), pParent(pParent) {}
-}
-PageEntry;
+};
 
 class COptionsDialog : public CDialogImpl<COptionsDialog>
 {

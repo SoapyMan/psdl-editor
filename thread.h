@@ -7,7 +7,7 @@ typedef void (*CALLBACK_FUNC)(std::string, int, ...);
 
 inline void NoCallback(std::string, int, ...) { }
 
-typedef struct ThreadData
+struct ThreadData
 {
 	CALLBACK_FUNC callbackFunc;
 	void* pParams;
@@ -16,7 +16,6 @@ typedef struct ThreadData
 		CALLBACK_FUNC _callbackFunc = NoCallback,
 		void* _pParams = NULL) :
 		callbackFunc(_callbackFunc), pParams(_pParams) {}
-}
-ThreadData;
+};
 
 #endif

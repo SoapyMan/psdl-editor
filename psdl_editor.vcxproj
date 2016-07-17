@@ -204,6 +204,9 @@
   <ItemGroup>
     <CustomBuild Include="psdl-editor.rc2" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\wtl.9.1\build\native\wtl.targets" Condition="Exists('packages\wtl.9.1\build\native\wtl.targets')" />

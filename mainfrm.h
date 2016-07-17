@@ -19,13 +19,12 @@
 #include "include/atldock.h"
 #include "include/atldock2.h"
 
-typedef struct
+struct extMap
 {
 	const char* strExt;
 	DocTemplateBase* pDocTmpl;
 	int iEditMode;
-}
-extMap;
+};
 
 class CMainFrame;
 

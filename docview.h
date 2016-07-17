@@ -21,7 +21,7 @@ class View
 
 class DocTemplateBase;
 
-typedef struct IOParams
+struct IOParams
 {
 	std::string strFileName;
 	void*& pDoc;
@@ -39,10 +39,9 @@ typedef struct IOParams
 		pDocTmpl(_pDocTmpl),
 		callbackFunc(_callbackFunc)
 	{}
-}
-IOParams;
+};
 
-typedef struct GLParams
+struct GLParams
 {
 	HDC hDC;
 	HGLRC hRC;
@@ -60,8 +59,7 @@ typedef struct GLParams
 		pDocTmpl(_pDocTmpl),
 		callbackFunc(_callbackFunc)
 	{}
-}
-GLParams;
+};
 
 class DocTemplateBase
 {

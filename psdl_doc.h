@@ -9,11 +9,10 @@
 
 #include <math.h>
 
-typedef struct
+struct vertexMap
 {
 	unsigned short from, to;
-}
-vertexMap;
+};
 
 class PSDLDocTemplate : public DocTemplate<psdl, PSDLView>
 {

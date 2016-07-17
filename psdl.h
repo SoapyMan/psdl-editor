@@ -51,8 +51,6 @@
 
 #define SW_H .15f
 
-class psdl;
-
 class psdl
 {
 public:
@@ -82,12 +80,11 @@ public:
 		return sqrtf(dx * dx + dy * dy + dz * dz);
 	}
 
-	typedef struct
+	struct perimeter_pt
 	{
 		unsigned short vertex;
 		unsigned short block; // Index + 1
-	}
-	perimeter_pt;
+	};
 
 	class block;
 

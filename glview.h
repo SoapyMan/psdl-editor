@@ -8,19 +8,17 @@
 #define KEYDOWN(vkey) (GetAsyncKeyState(vkey) & 0x8000)
 #define KEYUP(vkey) !KEYDOWN(vkey)
 
-typedef struct GLVector
+struct GLVector
 {
 	GLfloat x, y, z;
 	GLVector() : x(0), y(0), z(0) {}
-}
-GLVector;
+};
 
-typedef struct GLPoint
+struct GLPoint
 {
 	GLfloat x, y;
 	GLPoint() : x(0), y(0) {}
-}
-GLPoint;
+};
 
 class COpenGLView : public CWindowImpl<COpenGLView>
 {
