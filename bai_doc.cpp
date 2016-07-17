@@ -624,6 +624,8 @@ bool BAIDocTemplate::GenerateAIRoutes(psdl* pPSDL, ProgressMonitor* pMonitor)
 		}
 
 		Vector vec1, vec2, vec3;
+        int k;
+
 		for (k = 0; k < road.origin.size(); ++k)
 		{
 			// Right lanes distances

@@ -1199,7 +1199,7 @@ BOOL CMainFrame::OpenDocument(CString strDocName)
 	//	dlg.Run(&DocTemplateBase::LoadDocumentThread);
 		dlg.SetCaption("Loading " + strExt + " file...");
 
-		DocTemplateBase::ThreadParams params(pDocTmpl, (LPCTSTR)strDocName, &pDoc);
+		ThreadParams params(pDocTmpl, (LPCTSTR)strDocName, &pDoc);
 
 		error::code code = dlg.Run(&DocTemplateBase::LoadDocumentThread, &params);
 

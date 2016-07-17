@@ -5,6 +5,7 @@
 #include "config.h"
 #include "mainfrm.h"
 #include <sstream>
+#include <iterator>
 
 using namespace std;
 

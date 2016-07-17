@@ -192,7 +192,7 @@ for (vector<string>::iterator it = mtl.begin(); it != mtl.end(); ++it)
 
 		unsigned int nAttributes = 0;
 
-		long targetPos = f.tellg() + 2 * (long) n_attributesize;
+		long targetPos = (long)f.tellg() + (2 * n_attributesize);
 
 		while (f.tellg() < targetPos)
 		{
@@ -234,8 +234,8 @@ for (vector<string>::iterator it = mtl.begin(); it != mtl.end(); ++it)
 						for (k = 0; k < 4 * nSections; ++k)
 						{
 							f.read((char*) &vertexRef, 2);
-						//	static_cast<road_strip*>(atb)->add_vertex(vertexRef);
-							static_cast<road_strip*>(atb)->add_vertex(get_vertex(vertexRef));
+							static_cast<road_strip*>(atb)->add_vertex(vertexRef);
+							//static_cast<road_strip*>(atb)->add_vertex(get_vertex(vertexRef));
 						}
 					}
 					break;
@@ -253,8 +253,8 @@ for (vector<string>::iterator it = mtl.begin(); it != mtl.end(); ++it)
 						for (k = 0; k < 2 * nSections; ++k)
 						{
 							f.read((char*) &vertexRef, 2);
-						//	static_cast<sidewalk_strip*>(atb)->add_vertex(vertexRef);
-							static_cast<sidewalk_strip*>(atb)->add_vertex(get_vertex(vertexRef));
+							static_cast<sidewalk_strip*>(atb)->add_vertex(vertexRef);
+							//static_cast<sidewalk_strip*>(atb)->add_vertex(get_vertex(vertexRef));
 						}
 					}
 					break;
@@ -272,8 +272,8 @@ for (vector<string>::iterator it = mtl.begin(); it != mtl.end(); ++it)
 						for (k = 0; k < 2 * nSections; ++k)
 						{
 							f.read((char*) &vertexRef, 2);
-						//	static_cast<rectangle_strip*>(atb)->add_vertex(vertexRef);
-							static_cast<rectangle_strip*>(atb)->add_vertex(get_vertex(vertexRef));
+							static_cast<rectangle_strip*>(atb)->add_vertex(vertexRef);
+							//static_cast<rectangle_strip*>(atb)->add_vertex(get_vertex(vertexRef));
 						}
 					}
 					break;
@@ -323,8 +323,8 @@ for (vector<string>::iterator it = mtl.begin(); it != mtl.end(); ++it)
 						for (k = 0; k < nTriangles + 2; ++k)
 						{
 							f.read((char*) &vertexRef, 2);
-						//	static_cast<road_triangle_fan*>(atb)->add_vertex(vertexRef);
-							static_cast<road_triangle_fan*>(atb)->add_vertex(get_vertex(vertexRef));
+							static_cast<road_triangle_fan*>(atb)->add_vertex(vertexRef);
+							//static_cast<road_triangle_fan*>(atb)->add_vertex(get_vertex(vertexRef));
 						}
 					}
 					break;
@@ -341,8 +341,8 @@ for (vector<string>::iterator it = mtl.begin(); it != mtl.end(); ++it)
 
 						for (k = 0; k < nTriangles + 2; ++k) {
 							f.read((char*) &vertexRef, 2);
-						//	static_cast<triangle_fan*>(atb)->add_vertex(vertexRef);
-							static_cast<triangle_fan*>(atb)->add_vertex(get_vertex(vertexRef));
+							static_cast<triangle_fan*>(atb)->add_vertex(vertexRef);
+							//static_cast<triangle_fan*>(atb)->add_vertex(get_vertex(vertexRef));
 						}
 					}
 					break;
@@ -386,8 +386,8 @@ for (vector<string>::iterator it = mtl.begin(); it != mtl.end(); ++it)
 
 						for (k = 0; k < 6 * nSections; ++k) {
 							f.read((char*) &vertexRef, 2);
-						//	static_cast<divided_road_strip*>(atb)->add_vertex(vertexRef);
-							static_cast<divided_road_strip*>(atb)->add_vertex(get_vertex(vertexRef));
+							static_cast<divided_road_strip*>(atb)->add_vertex(vertexRef);
+							//static_cast<divided_road_strip*>(atb)->add_vertex(get_vertex(vertexRef));
 						}
 					}
 					break;
@@ -478,8 +478,8 @@ for (vector<string>::iterator it = mtl.begin(); it != mtl.end(); ++it)
 
 						for (k = 0; k < nVertices + 1; ++k) {
 							f.read((char*) &vertexRef, 2);
-						//	static_cast<roof_triangle_fan*>(atb)->add_vertex(vertexRef);
-							static_cast<roof_triangle_fan*>(atb)->add_vertex(get_vertex(vertexRef));
+							static_cast<roof_triangle_fan*>(atb)->add_vertex(vertexRef);
+							//static_cast<roof_triangle_fan*>(atb)->add_vertex(get_vertex(vertexRef));
 						}
 					}
 					break;
@@ -1278,6 +1278,7 @@ error::code psdl::write_sdl(const char* filename, ProgressMonitor* monitor)
 					}
 			}
 
+            /*
 			switch (atb->type)
 			{
 				case 0x0:
@@ -1359,6 +1360,7 @@ error::code psdl::write_sdl(const char* filename, ProgressMonitor* monitor)
 			}
 
 			f << "\n";
+            */
 		}
 
 		f << "\n";

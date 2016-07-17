@@ -80,7 +80,7 @@ public:
 		return sqrtf(dx * dx + dy * dy + dz * dz);
 	}
 
-    struct perimeter_pt
+    typedef struct perimeter_pt
 	{
 		unsigned short vertex;
 		unsigned short block; // Index + 1
@@ -157,7 +157,7 @@ public:
 		}
 		virtual Vertex* get_vertex(unsigned short pos)
 		{
-			return _vertex_list->begin() + _vertices[pos];
+			return &*(_vertex_list->begin() + _vertices[pos]);
 		}
 		std::vector<Vertex*> get_vertices(void)
 		{
@@ -165,7 +165,7 @@ public:
 			ret.reserve(num_vertices());
 			for (std::vector< unsigned long >::iterator it = _vertices.begin(); it != _vertices.end(); ++it)
 			{
-				Vertex* v = _vertex_list->begin() + *it;
+				Vertex* v = &*(_vertex_list->begin() + *it);
 				ret.push_back(v);
 			}
 			return ret;
@@ -200,7 +200,7 @@ public:
 
 		virtual Vertex* get_vertex(unsigned short pos)
 		{
-			return _vertex_list->begin() + _vertices[pos];
+			return &*(_vertex_list->begin() + _vertices[pos]);
 		}
 		virtual unsigned short get_vertex_ref(unsigned short pos)
 		{
@@ -327,7 +327,7 @@ public:
 
 		Vertex* get_vertex(unsigned short pos)
 		{
-			return _vertex_list->begin() + _vertices[pos];
+			return &*(_vertex_list->begin() + _vertices[pos]);
 		}
 		virtual unsigned short get_vertex_ref(unsigned short pos)
 		{
@@ -817,7 +817,7 @@ public:
 				{
 					if (in->Match( (*_vertex_list)[(*p).vertex] ))
 					{
-						out = p;
+						out = &(*p);
 						return true;
 					}
 				}

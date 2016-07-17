@@ -39,9 +39,9 @@ public:
 
 template <WORD t_wDlgTemplateID>
 class CAtbView :
-	public CPropViewImpl<CAtbView>,
-	public CWinDataExchange<CAtbView>,
-	public CDialogResize<CAtbView>
+	public CPropViewImpl<CAtbView<t_wDlgTemplateID>>,
+	public CWinDataExchange<CAtbView<t_wDlgTemplateID>>,
+	public CDialogResize<CAtbView<t_wDlgTemplateID>>
 {
 public:
 	enum { IDD = t_wDlgTemplateID };

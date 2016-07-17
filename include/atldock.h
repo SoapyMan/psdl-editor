@@ -311,7 +311,7 @@ typedef CWinTraits<WS_OVERLAPPED|WS_CAPTION|WS_THICKFRAME|WS_SYSMENU, WS_EX_TOOL
 template <class T, class TBase = CWindow, class TWinTraits = CFloatWinTraits>
 class ATL_NO_VTABLE CFloatingWindowImpl : 
    public CWindowImpl< T, TBase, TWinTraits >,
-   public CSplitterBar<CFloatingWindowImpl>
+   public CSplitterBar<CFloatingWindowImpl<T, TBase, TWinTraits> >
 {
 public:
    DECLARE_WND_CLASS_EX(NULL, CS_DBLCLKS, NULL)
@@ -457,7 +457,7 @@ public:
 template <class T, class TBase = CWindow, class TWinTraits = CControlWinTraits>
 class ATL_NO_VTABLE CDockingPaneChildWindowImpl : 
    public CWindowImpl< T, TBase, TWinTraits >,
-   public CSplitterBar<CDockingPaneChildWindowImpl>
+   public CSplitterBar<CDockingPaneChildWindowImpl<T, TBase, TWinTraits> >
 {
 public:
    DECLARE_WND_CLASS_EX(NULL, CS_HREDRAW|CS_VREDRAW|CS_DBLCLKS, NULL)
@@ -757,7 +757,7 @@ public:
 template <class T, class TBase = CWindow, class TWinTraits = CControlWinTraits>
 class ATL_NO_VTABLE CDockingPaneWindowImpl : 
    public CWindowImpl< T, TBase, TWinTraits >,
-   public CSplitterBar<CDockingPaneWindowImpl>
+   public CSplitterBar<CDockingPaneWindowImpl< T, TBase, TWinTraits> >
 {
 public:
    DECLARE_WND_CLASS_EX(NULL, CS_HREDRAW|CS_VREDRAW|CS_DBLCLKS, COLOR_WINDOW)
