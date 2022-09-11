@@ -127,7 +127,10 @@ float gltStopwatchRead(GLTStopwatch *pWatch);
 /////////////////////////////////////////////////////////////////////////////////////
 // Functions, need to be linked to your program. Source file for function is given
 // LoadTGA.c
-GLbyte *gltLoadTGA(const char *szFileName, GLint *iWidth, GLint *iHeight, GLint *iComponents, GLenum *eFormat);
+GLbyte* gltLoadTGA(const char *szFileName, GLint *iWidth, GLint *iHeight, GLint *iComponents, GLenum *eFormat);
+
+// LoadTEX.c
+GLbyte* gltLoadTEX(const char* szFileName, GLint* iWidth, GLint* iHeight, GLint* iComponents, GLenum* eFormat);
 
 // WriteTGA.c
 GLint gltWriteTGA(const char *szFileName);

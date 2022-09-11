@@ -46,9 +46,9 @@ void BAIView::RenderScene(void)
 		}
 	}
 
-	GLint iMode;
+	GLint iMode[2];
 	GLboolean bCullFace = glIsEnabled(GL_CULL_FACE);
-	glGetIntegerv(GL_POLYGON_MODE, &iMode);
+	glGetIntegerv(GL_POLYGON_MODE, iMode);
 
 	glDisable(GL_CULL_FACE);
 	glPolygonMode(GL_FRONT, GL_FILL);
@@ -187,7 +187,7 @@ void BAIView::RenderScene(void)
 		DrawCircle(&m_pDoc->junctions[i].center.x, 2.5f, 20);
 	}
 
-	glPolygonMode(GL_FRONT, iMode);
+	glPolygonMode(GL_FRONT, iMode[0]);
 	if (bCullFace) glEnable(GL_CULL_FACE);
 
 	glTranslatef(0, 0, 0);

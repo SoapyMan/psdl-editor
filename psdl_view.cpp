@@ -20,6 +20,8 @@ error::code PSDLView::LoadTextures(ProgressMonitor* pMonitor)
 	return LoadTextures(hDC, hRC, pMonitor);
 }
 
+typedef GLbyte* (*gltLoadTexture)(const char* szFileName, GLint* iWidth, GLint* iHeight, GLint* iComponents, GLenum* eFormat);
+
 error::code PSDLView::LoadTextures(HDC hDC, HGLRC hRC, ProgressMonitor* pMonitor)
 {
 //	callbackFunc("Loading textures...", 0);
@@ -41,7 +43,8 @@ error::code PSDLView::LoadTextures(HDC hDC, HGLRC hRC, ProgressMonitor* pMonitor
 	glGenTextures(n_tex, &m_textures[0]);
 
 	const CString sAnim = "-0001";
-	const CString sExt = ".tga";
+	const CString sTexExt = ".tex";
+	const CString sTgaExt = ".tga";
 
 //	GLfloat fLargest;
 //	glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &fLargest);
@@ -50,56 +53,79 @@ error::code PSDLView::LoadTextures(HDC hDC, HGLRC hRC, ProgressMonitor* pMonitor
 	searchPaths.push_back("../texture/");
 	searchPaths.insert(searchPaths.end(), config.directories.texturePaths.begin(), config.directories.texturePaths.end());
 
-	unsigned int j;
+	unsigned int j, k;
 	unsigned int nSearchPaths = searchPaths.size();
 
-	for (unsigned long i = 0; i < n_tex; )
+	enum TexType
 	{
-		if (!m_pDoc->get_texname(i).empty())
-		{
-			for (j = 0; j < nSearchPaths; ++j)
-			{
-				CString sTexName = (CString) searchPaths[j].c_str() + m_pDoc->get_texname(i).c_str();
+		Type_NotFound = -1,
+		Type_TEX = 0,
+		Type_TGA = 1,
 
-				if (GetFileAttributes(sTexName + sExt) == INVALID_FILE_ATTRIBUTES)
+		Type_Count
+	};
+
+	gltLoadTexture texLoadFuncs[Type_Count] = {
+		gltLoadTGA,
+		gltLoadTEX
+	};
+
+	CString texExts[Type_Count] = {
+		sTgaExt,
+		sTexExt
+	};
+
+	for (unsigned long i = 0; i < n_tex; ++i)
+	{
+		pMonitor->setProgress(i);
+
+		if (m_pDoc->get_texname(i).empty())
+			continue;
+
+		TexType type = Type_NotFound;
+		
+		for (j = 0; j < nSearchPaths; ++j)
+		{
+			CString sTexName = (CString) searchPaths[j].c_str() + m_pDoc->get_texname(i).c_str();
+
+			bool bLoaded = false;
+			for (k = 0; k < Type_Count; ++k)
+			{
+				// priority to load TGA, then TEX
+				if (GetFileAttributes(sTexName + texExts[k]) == INVALID_FILE_ATTRIBUTES)
 				{
-					if (GetFileAttributes(sTexName + sAnim + sExt) == INVALID_FILE_ATTRIBUTES)
+					if (GetFileAttributes(sTexName + sAnim + texExts[k]) == INVALID_FILE_ATTRIBUTES)
 						continue;
 					else
 						sTexName += sAnim;
 				}
 
-			//	if (GetFileAttributes(sTexName + sAnim + sExt) != INVALID_FILE_ATTRIBUTES)
-			//		sTexName += sAnim;
+				sTexName += texExts[k];
 
-				sTexName += sExt;
-
-				if (pBytes = gltLoadTGA(sTexName, &iWidth, &iHeight, &iComponents, &eFormat))
+				if (pBytes = (texLoadFuncs[k])(sTexName, &iWidth, &iHeight, &iComponents, &eFormat))
 				{
 					glBindTexture(GL_TEXTURE_2D, m_textures[i]);
 
 					glTexImage2D(GL_TEXTURE_2D, 0, iComponents, iWidth, iHeight,
-												0, eFormat, GL_UNSIGNED_BYTE, pBytes);
+						0, eFormat, GL_UNSIGNED_BYTE, pBytes);
 					free(pBytes);
 
 					GLint iFilter = config.display.bTextureNearest ? GL_NEAREST : GL_LINEAR;
 
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, iFilter);
 					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, iFilter);
-				//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-				//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-				//	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, fLargest);
-				}
-				else
-				{
-					ATLTRACE("Cannot load %s\n", sTexName);
+					//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+					//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+					//	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, fLargest);
+					break;
 				}
 			}
+			
+			if(!bLoaded)
+			{
+				ATLTRACE("Cannot load %s\n", sTexName);
+			}
 		}
-
-	//	callbackFunc("", 100 * ++i / n_tex);
-		++i;
-		pMonitor->setProgress(i);
 	}
 
 	wglMakeCurrent(NULL, NULL);
